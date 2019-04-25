@@ -1,3 +1,5 @@
+**Check pull-requests for proposed interfaces**
+
 # Stream Interoperability
 
 [![Latest Stable Version](https://poser.pugx.org/stream-interop/stream-interop/v/stable.png)](https://packagist.org/packages/stream-interop/stream-interop)
