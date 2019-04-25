@@ -1,0 +1,23 @@
+{
+    "name": "stream-interop/stream-interop",
+    "type": "library",
+    "require": {
+        "php": "^7.1"
+    },
+    "description": "A set of contracts for PHP projects to adhere to when working with streams.",
+    "homepage": "https://github.com/stream-interop/stream-interop",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Nathan Bishop",
+            "email": "nbish11@hotmail.com",
+            "homepage": "https://github.com/nbish11",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Interop\\Stream\\": "src/"
+        }
+    }
+}
