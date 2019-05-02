@@ -13,7 +13,7 @@ use Interop\Stream\Seekable;
  * @copyright 2019 Nathan Bishop
  * @license MIT
  */
-interface ReadAndSeek implements Readable, Seekable
+interface ReadAndSeek extends Readable, Seekable
 {
 
 }

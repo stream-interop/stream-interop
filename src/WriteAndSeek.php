@@ -13,7 +13,7 @@ use Interop\Stream\Seekable;
  * @copyright 2019 Nathan Bishop
  * @license MIT
  */
-interface WriteAndSeek implements Writable, Seekable
+interface WriteAndSeek extends Writable, Seekable
 {
 
 }
