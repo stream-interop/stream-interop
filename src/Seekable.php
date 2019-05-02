@@ -3,8 +3,6 @@ declare(strict_types=1);
 
 namespace Interop\Stream;
 
-use Interop\Stream\Readable;
-
 /**
  * Contract for a seekable streams.
  *
@@ -12,23 +10,23 @@ use Interop\Stream\Readable;
  * @copyright 2019 Nathan Bishop
  * @license MIT
  */
-interface Seekable extends Readable
+interface Seekable
 {
     /**
      * @const integer Set position equal to offset bytes.
      */
     const SEEK_SET = SEEK_SET;
-    
+
     /**
      * @const integer Set position to current location plus offset.
      */
     const SEEK_CURRENT = SEEK_CUR;
-    
+
     /**
      * @const integer Set position to end-of-file plus offset.
      */
     const SEEK_END = SEEK_END;
-    
+
     /**
      * Retrieve the size of contents in buffer.
      *
@@ -36,7 +34,7 @@ interface Seekable extends Readable
      * @return integer Returns the size of the buffer in bytes.
      */
     public function getSize(): int;
-    
+
     /**
      * Seek to a position within the stream.
      *
@@ -46,14 +44,14 @@ interface Seekable extends Readable
      * @throws \InvalidArgumentException If $whence is not a SEEK_* constant.
      */
     public function seek(int $offset, int $whence = self::SEEK_SET): void;
-    
+
     /**
      * Retrieve the current position of the buffer's internal pointer.
      *
      * @return integer
      */
     public function tell(): int;
-    
+
     /**
      * Rewind the stream back to the beginning.
      */
