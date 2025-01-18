@@ -4,6 +4,8 @@
 
 [![Latest Stable Version](https://poser.pugx.org/stream-interop/stream-interop/v/stable.png)](https://packagist.org/packages/stream-interop/stream-interop)
 [![Total Downloads](https://poser.pugx.org/stream-interop/stream-interop/downloads.svg)](https://packagist.org/packages/stream-interop/stream-interop)
+[![PDS Skeleton](https://img.shields.io/badge/pds-skeleton-blue.svg?style=flat-square)](https://github.com/php-pds/skeleton)
+[![PDS Composer Script Names](https://img.shields.io/badge/pds-composer--script--names-blue?style=flat-square)](https://github.com/php-pds/composer-script-names)
 
 ## About
 

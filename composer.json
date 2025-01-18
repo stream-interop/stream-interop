@@ -1,10 +1,7 @@
 {
     "name": "stream-interop/stream-interop",
     "type": "library",
-    "require": {
-        "php": "^7.1"
-    },
-    "description": "A set of contracts for PHP projects to adhere to when working with streams.",
+    "description": "Interoperable interfaces for streams in PHP 8.4 and later.",
     "homepage": "https://github.com/stream-interop/stream-interop",
     "license": "MIT",
     "authors": [
@@ -14,10 +11,28 @@
             "homepage": "https://github.com/nbish11",
             "role": "Developer"
         }
+        {
+            "name": "Paul M. Jones",
+            "email": "pmjones@pmjones.io",
+            "homepage": "https://pmjones.io/",
+            "role": "Lead"
+        }
     ],
     "autoload": {
-        "psr-4": {
+        "psr-4" : {
             "Interop\\Stream\\": "src/"
         }
+    },
+    "require": {
+        "php": ">=8.4"
+    },
+    "require-dev": {
+        "pds/skeleton": "^1.0",
+        "pds/composer-script-names": "^1.0",
+        "phpstan/phpstan": "^2.0"
+    },
+    "scripts": {
+        "analyze": "./vendor/bin/phpstan analyze -c phpstan.neon",
+        "check": "composer analyze"
     }
 }
