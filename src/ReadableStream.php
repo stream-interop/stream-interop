@@ -22,14 +22,6 @@ interface ReadableStream extends Stream
     public function read(int $length) : string;
 
     /**
-     * Copy the contents of this stream to another.
-     *
-     * @param Writable $destination The stream to write to.
-     * @return Writable The stream being written to.
-     */
-    public function pipe(Writable $destination) : Writable;
-
-    /**
      * Determines if the stream has read to end-of-file.
      *
      * @return boolean
