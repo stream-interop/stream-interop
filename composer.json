@@ -1,8 +1,8 @@
 {
-    "name": "stream-interop/stream-interop",
+    "name": "stream-interop/interface",
     "type": "library",
     "description": "Interoperable interfaces for streams in PHP 8.4 and later.",
-    "homepage": "https://github.com/stream-interop/stream-interop",
+    "homepage": "https://github.com/stream-interop/interface",
     "license": "MIT",
     "authors": [
         {

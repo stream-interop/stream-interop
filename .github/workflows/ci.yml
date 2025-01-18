@@ -1,4 +1,4 @@
-name: stream-interop/stream-interop
+name: stream-interop/interface
 
 on:
   push:
