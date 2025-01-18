@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Interop\Stream;
+namespace StreamInterop\Interface;
 
-use Interop\Stream\Readable;
-use Interop\Stream\Seekable;
+use StreamInterop\Interface\Readable;
+use StreamInterop\Interface\Seekable;
 
 /**
  * Contract for a stream that can be both seeked into and read from.

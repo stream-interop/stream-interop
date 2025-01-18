@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Interop\Stream;
+namespace StreamInterop\Interface;
 
-use Interop\Stream\Writable;
+use StreamInterop\Interface\Writable;
 
 /**
  * Contract for read-only streams.

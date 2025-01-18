@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Interop\Stream;
+namespace StreamInterop\Interface;
 
-use Interop\Stream\Readable;
-use Interop\Stream\Writable;
+use StreamInterop\Interface\Readable;
+use StreamInterop\Interface\Writable;
 
 /**
  * Contract for a "duplex" stream.
