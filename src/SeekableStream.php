@@ -8,7 +8,7 @@ use RuntimeException;
 /**
  * Contract for a seekable stream.
  */
-interface SeekableStream
+interface SeekableStream extends Stream
 {
     /**
      * Seek to a position within the stream.
