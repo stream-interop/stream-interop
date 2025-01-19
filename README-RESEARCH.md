@@ -82,7 +82,7 @@ method                                    | amphp | fzan | hoa | kraken | psr | 
 
 
 1. psr as `detach()`, zenstr as `get()`
-2. hoa has `getSize()`` only in its _StatableInterface_
+2. hoa has `getSize()` only in its _StatableInterface_
 
 ## Exceptions
 
