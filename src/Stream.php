@@ -29,11 +29,6 @@ interface Stream
      */
     public array $metadata { get; }
 
-    /**
-     * @var resource
-     */
-    public mixed $resource { get; }
-
     public function isClosed() : bool;
 
     public function isOpen() : bool;
