@@ -38,9 +38,6 @@ The _Stream_ interface defines these properties common to all streams:
 
 It also defines these methods common to all streams:
 
-- `public function getSize() : ?int`
-    - Returns the length of the stream in bytes as if by the [`fstat()`][] value for `size`, or null on error or if indeterminate.
-
 - `public function isClosed() : bool`
     - Returns true if the stream has been closed, or false if not.
 
@@ -84,6 +81,17 @@ The _ClosableStream_ interface extends _Stream_ to define this method:
 Notes:
 
 - **Not all _Stream_ implementations need to be closable.** It may be important for resource closing to be handled by a separate service or authority, and not be closable by _Stream_ consumers.
+
+### _SizableStream_
+
+The _SizableStream_ interface extends _Stream_ to define this method:
+
+- `public function getSize() : int<0,max>`
+    - Returns the length of the stream in bytes as if by the [`fstat()`][] value for `size`, or null on error or if indeterminate.
+
+Notes:
+
+- **Not all _Stream_ implementations need to be sizable.** Some underlying resources may be unable to report a size; for example, remote or write-only streams.
 
 ### _ReadableStream_
 

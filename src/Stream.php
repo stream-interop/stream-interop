@@ -34,8 +34,6 @@ interface Stream
      */
     public mixed $resource { get; }
 
-    public function getSize() : ?int;
-
     public function isClosed() : bool;
 
     public function isOpen() : bool;
