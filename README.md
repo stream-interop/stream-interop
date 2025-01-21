@@ -26,11 +26,6 @@ Implementations MAY read from a resource internally without affording _ReadableS
 
 The _Stream_ interface defines these properties common to all streams:
 
-- `public resource $resource { get; }`
-    - Represents the resource as if opened by [`fopen()`][].
-    - It MUST be a `resource of type (stream)`; for example, as determined by `get_resource_type()`.
-    - It SHOULD NOT be publicly settable.
-
 - `public MetadataArray $metadata { get; }`
     - Represents the metadata for the resource as by `stream_get_meta_data()`.
     - It SHOULD provide the most-recent metadata for the `$resource` at the moment of property access.
@@ -66,9 +61,24 @@ Finally, it provides this custom PHPStan type to assist static analysis:
 
 Notes:
 
+- **The underlying resource is not exposed publicly here.** The underlying resource MAY remain private or protected. See the _ResourceStream_ interface below for details on making underlying resource publicly accessible.
+
 - **There are no `isReadable()`, etc. methods.** If necessary, such functionality can be determined by typehinting against the interface, or by checking `instanceof`, etc.
 
-- **The `$metadata` property is expected change dynamically.** That is, as the resource gets read from and written to, the metadata for that resource is likely to change. Thus, the `$metadata` property value is expected to change along with it. In practical terms, this likely means a `stream_get_meta_data()` call on each access of `$metadata`.
+- **The `$metadata` property is expected change dynamically.** That is, as the underlying resource gets read from and written to, the metadata for that resource is likely to change. Thus, the `$metadata` property value is expected to change along with it. In practical terms, this likely means a `stream_get_meta_data()` call on each access of `$metadata`.
+
+### _ResourceStream_
+
+The _ResourceStream_ interface defines this property to allow public access to the underlying resource:
+
+- `public resource $resource { get; }`
+    - Represents the resource as if opened by [`fopen()`][].
+    - It MUST be a `resource of type (stream)`; for example, as determined by `get_resource_type()`.
+    - It SHOULD NOT be publicly settable.
+
+Notes:
+
+- **Not all _Stream_ implementations need to expose the underlying resource.** Exposing the resource gives full control over it to consumers, who can then manipulate it however they like (e.g. close it, move the pointer, and so on). However, having access to the resource may be necessary for some consumers.
 
 ### _ClosableStream_
 
@@ -108,7 +118,7 @@ The _ReadableStream_ interface extends _Stream_ to define these methods for read
     - Returns up to `$length` bytes from the stream as if by [`fread()`][].
     - Implementations MUST throw [_RuntimeException_][] on failure.
 
-If the `$resource` is not readable at the time it becomes available to the _ReadableStream_, implementations MUST throw [_ValueError_][].
+If the underlying resource is not readable at the time it becomes available to the _ReadableStream_, implementations MUST throw [_ValueError_][].
 
 Notes:
 
@@ -130,7 +140,7 @@ The _SeekableStream_ interface extends _Stream_ to define methods for moving the
     - Returns the current stream pointer position as if by [`ftell()`][].
     - Implementations MUST throw [_RuntimeException_][] on failure.
 
-If the `$resource` is not seekable at the time it becomes available to the _SeekableStream_, implementations MUST throw [_ValueError_][].
+If the underlying resource is not seekable at the time it becomes available to the _SeekableStream_, implementations MUST throw [_ValueError_][].
 
 ### _StringableStream_
 
@@ -147,7 +157,7 @@ The _WritableStream_ interface extends _Stream_ to define a single method for wr
     - Writes `$data` starting at the current stream pointer position, returning the number of bytes written, as if by `fwrite()`.
     - Implementations MUST throw [_RuntimeException_][] on failure.
 
-If the `$resource` is not writable at the time it becomes available to the _WritableStream_, implementations MUST throw [_ValueError_][].
+If the underlying resource is not writable at the time it becomes available to the _WritableStream_, implementations MUST throw [_ValueError_][].
 
 
 ## Implementations
