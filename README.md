@@ -87,7 +87,7 @@ Notes:
 The _ClosableStream_ interface extends _Stream_ to define this method:
 
 - `public function close() : void`
-    - Closes the stream as if by [`fclose()`][].
+    - Closes the stream as if by [`fclose()`][], [`pclose()`][], etc.
     - Implementations MUST throw [_RuntimeException_][] on failure.
 
 Notes:
@@ -197,9 +197,12 @@ Even so, consumers are free to register filters on the resources they injection 
 [`fopen()`]: https://php.net/fopen
 [`fread()`]: https://php.net/fread
 [`fseek()`]: https://php.net/fseek
+[`fsockopen()`]: https://php.net/fsockopen
 [`fstat()`]: https://php.net/fstat
 [`ftell()`]: https://php.net/ftell
 [`fwrite()`]: https://php.net/fwrite
+[`pclose()`]: https://php.net/pclose
+[`popen()`]: https://php.net/popen
 [`rewind()`]: https://php.net/rewind
 [`stream_get_contents()`]: https://php.net/stream_get_contents
 [`stream_get_meta_data()`]: https://php.net/stream_get_meta_data
