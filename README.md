@@ -101,7 +101,7 @@ Notes:
 The _SizableStream_ interface extends _Stream_ to define this method:
 
 - `public function getSize() : int<0,max>`
-    - Returns the length of the stream in bytes as if by the [`fstat()`][] value for `size`, or null on error or if indeterminate.
+    - Returns the length of the stream in bytes as if by the [`fstat()`][] value for `size`.
 
 Notes:
 
@@ -166,7 +166,7 @@ If the encapsulated resource is not writable at the time it becomes available to
 
 ## Implementations
 
-Reference implementations are available at **TBD**.
+Reference implementations are available at <https://github.com/stream-interop/impl>.
 
 ## Q & A
 
