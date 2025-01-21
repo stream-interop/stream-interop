@@ -14,7 +14,9 @@ This package attempts to adhere to the [SemVer](http://semver.org/) specificatio
 StreamInterop defines separate interfaces for various affordances around stream resources so that (1) implementations can advertise well-tailored affordances, and (2) consumers can typehint to the specific affordances they require for specific situations.
 
 - _Stream_ is a common baseline for streams.
+- _ResourceStream_ affords direct access to the encapsulated resource.
 - _ClosableStream_ affords closing the stream.
+- _SizableStream_ affords getting the full length of the stream in bytes.
 - _ReadableStream_ affords reading from the stream.
 - _SeekableStream_ affords moving the stream pointer.
 - _StringableStream_ affords casting the stream to a string.
