@@ -63,11 +63,11 @@ Finally, it provides this custom PHPStan type to assist static analysis:
 
 Notes:
 
-- **The encapsulated resource is not exposed publicly here.** Indeed, the _Stream_ might encapsulate something other than a resource of type (stream). The encapsulated resource, if there is one, MAY remain private or protected. See the _ResourceStream_ interface below for details on making the encapsulated resource publicly accessible.
+- **The `$metadata` property is expected change dynamically.** That is, as the encapsulated resource gets read from and written to, the metadata for that resource is likely to change. Thus, the `$metadata` property value is expected to change along with it. In practical terms, this likely means a `stream_get_meta_data()` call on each access of `$metadata`.
 
 - **There are no `isReadable()`, etc. methods.** If necessary, such functionality can be determined by typehinting against the interface, or by checking `instanceof`, etc.
 
-- **The `$metadata` property is expected change dynamically.** That is, as the encapsulated resource gets read from and written to, the metadata for that resource is likely to change. Thus, the `$metadata` property value is expected to change along with it. In practical terms, this likely means a `stream_get_meta_data()` call on each access of `$metadata`.
+- **The encapsulated resource is not exposed publicly here.** Indeed, the _Stream_ might encapsulate something other than a resource of type (stream). The encapsulated resource, if there is one, MAY remain private or protected. See the _ResourceStream_ interface below for details on making the encapsulated resource publicly accessible.
 
 ### _ResourceStream_
 
