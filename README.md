@@ -63,7 +63,7 @@ Finally, it provides this custom PHPStan type to assist static analysis:
 
 Notes:
 
-- **The encapsulated resource is not exposed publicly here.** Indeed, the _Stream_ might encapsualte something other than a resource of type (stream). The encapsulated resource, if there is one, MAY remain private or protected. See the _ResourceStream_ interface below for details on making the encapsulated resource publicly accessible.
+- **The encapsulated resource is not exposed publicly here.** Indeed, the _Stream_ might encapsulate something other than a resource of type (stream). The encapsulated resource, if there is one, MAY remain private or protected. See the _ResourceStream_ interface below for details on making the encapsulated resource publicly accessible.
 
 - **There are no `isReadable()`, etc. methods.** If necessary, such functionality can be determined by typehinting against the interface, or by checking `instanceof`, etc.
 
@@ -71,7 +71,7 @@ Notes:
 
 ### _ResourceStream_
 
-The _ResourceStream_ interface defines this property to allow public access to the encapsulated resource:
+The _ResourceStream_ interface extends _Stream_ to define this property that allows public access to the encapsulated resource:
 
 - `public resource $resource { get; }`
     - Represents the resource as if opened by [`fopen()`][], [`fsockopen()`][], [`popen()`][], etc.
