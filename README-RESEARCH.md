@@ -3,12 +3,11 @@
 StreamInterop is based on research including the following projects:
 
 - amphp/byte-stream: https://github.com/amphp/byte-stream (amphp)
-- aphiria/io: https://github.com/aphiria/io (aphiria)
 - fzaninotto/streamer: https://github.com/fzaninotto/Streamer (fzan)
 - hoa/stream: https://github.com/hoaproject/Stream (hoa)
 - kraken-php/stream: https://github.com/kraken-php/stream (kraken)
 - psr/http-message: https://github.com/php-fig/http-message/blob/master/src/StreamInterface.php (psr)
-- react/stream: https://packagist.org/packages/react/stream (react)
+- react/stream: https://github.com/reactphp/stream (react)
 - zenstruck/stream: https://github.com/zenstruck/stream (zenstr)
 
 ## Interface Separations
