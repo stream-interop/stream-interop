@@ -6,7 +6,7 @@ namespace StreamInterop\Interface;
 interface SizableStream extends Stream
 {
     /**
-     * @return int<0, max>
+     * @return ?int<0, max>
      */
-    public function getSize() : int;
+    public function getSize() : ?int;
 }
