@@ -122,7 +122,7 @@ The _ReadableStream_ interface extends _Stream_ to define these methods for read
     - Returns up to `$length` bytes from the stream as if by [`fread()`][].
     - Implementations MUST throw [_RuntimeException_][] on failure.
 
-If the encapsulated resource is not readable at the time it becomes available to the _ReadableStream_, implementations MUST throw [_ValueError_][].
+If the encapsulated resource is not readable at the time it becomes available to the _ReadableStream_, implementations MUST throw [_InvalidArgumentException_][].
 
 Notes:
 
@@ -144,7 +144,7 @@ The _SeekableStream_ interface extends _Stream_ to define methods for moving the
     - Returns the current stream pointer position as if by [`ftell()`][].
     - Implementations MUST throw [_RuntimeException_][] on failure.
 
-If the encapsulated resource is not seekable at the time it becomes available to the _SeekableStream_, implementations MUST throw [_ValueError_][].
+If the encapsulated resource is not seekable at the time it becomes available to the _SeekableStream_, implementations MUST throw [_InvalidArgumentException_][].
 
 ### _StringableStream_
 
@@ -161,7 +161,7 @@ The _WritableStream_ interface extends _Stream_ to define a single method for wr
     - Writes `$data` starting at the current stream pointer position, returning the number of bytes written, as if by `fwrite()`.
     - Implementations MUST throw [_RuntimeException_][] on failure.
 
-If the encapsulated resource is not writable at the time it becomes available to the _WritableStream_, implementations MUST throw [_ValueError_][].
+If the encapsulated resource is not writable at the time it becomes available to the _WritableStream_, implementations MUST throw [_InvalidArgumentException_][].
 
 
 ## Implementations
@@ -192,8 +192,8 @@ Even so, consumers are free to register filters on the resources they injection 
 
 * * *
 
+[_InvalidArgumentException_]: https://php.net/InvalidArgumentException
 [_RuntimeException_]: https://php.net/RuntimeException
-[_ValueError_]: https://php.net/ValueError
 [`fclose()`]: https://php.net/fclose
 [`feof()`]: https://php.net/feof
 [`fopen()`]: https://php.net/fopen
