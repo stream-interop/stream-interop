@@ -89,17 +89,17 @@ On these error conditions or their equivalents, these exceptions are thrown by t
 
 condition                                 | amphp | fzan | hoa | kraken | psr | react | zenstr |
 ----------------------------------------- | ----- | ---- | --- | ------ | --- | ----- | ------ |
-Resource is invalid                       |       | I    | C   | C      |     | I     | I      |
-Resource is not readable (1)              |       | L    |     | C      |     | I     |        |
-Resource is not seekable (2)              |       |      |     |        |     |       | R      |
-Resource is not writable (3)              |       | L    |     | C      |     | I     |        |
+Resource is invalid                       | E     | I    | C   | C      |     | I     | I      |
+Resource is not readable (1)              | E     | L    |     | C      |     | I     |        |
+Resource is not seekable (2)              | E     |      |     |        |     |       | R      |
+Resource is not writable (3)              | E     | L    |     | C      |     | I     |        |
 Resource is already closed                |       | L    |     |        |     |       | R      |
-`fread()` returns `false`                 | C     | R    |     |        | R   |       | C      |
-`fwrite()` returns `false`                | C     | R    |     | C      | R   |       | R      |
-`ftell()` returns `false`                 |       |      |     | C      | R   |       |        |
-`fseek()` returns `-1`                    |       |      |     | C      | R   |       | R      |
-`rewind()` returns `false`                |       |      |     | C      | R   |       | R      |
-`stream_get_contents()` returns `false`   |       |      |     | C      | R   |       | R      |
+Read fails                                | ?     | R    |     |        | R   |       | R      |
+Write fails                               | ?     | R    |     | C      | R   |       | R      |
+Tell fails                                |       |      |     | C      | R   |       |        |
+Seek fails                                |       |      |     | C      | R   |       | R      |
+Rewind fails                              |       |      |     | C      | R   |       | R      |
+Get contents fails                        |       |      |     | C      | R   |       | R      |
 
 1. Not opened with `'r'`, or has become unreadable
 2. Metadata `'seekable'` is `false`
@@ -109,5 +109,7 @@ Resource is already closed                |       | L    |     |        |     | 
 - `I`: PHP _InvalidArgumentException_
 - `L`: PHP _LogicException_
 - `R`: PHP _RuntimeException_
+- `E`: PHP _Error_
+- `?`: Depends on the implementation; sometimes custom, sometimes PHP
 
 * * *
