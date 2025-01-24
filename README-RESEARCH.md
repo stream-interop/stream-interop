@@ -71,7 +71,7 @@ These are some of the other affordances or their equivalents commonly defined in
 method                                    | amphp | fzan | hoa | kraken | psr | react | zenstr |
 ----------------------------------------- | ----- | ---- | --- | ------ | --- | ----- | ------ |
 `__toString()` (convert stream to string) |       |      |     |        | X   |       | X      |
-`getResource()` (get the resource itself) | X     | X    | X1   | X      | X1  |       | X1     |
+`getResource()` (get the resource itself) | X     | X    | X1  | X      | X1  |       | X1     |
 `getSize()`                               |       |      | X2  |        | X   |       |        |
 `isClosed()`                              | X     |      |     |        |     |       | X      |
 `isOpen()`                                |       | X    | X   | X      |     |       | X      |
