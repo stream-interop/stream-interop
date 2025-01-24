@@ -103,7 +103,7 @@ Get contents fails                        |       |      |     | C      | R   | 
 
 1. Not opened with `'r'`, or has become unreadable
 2. Metadata `'seekable'` is `false`
-3. Not opened with `'w'`, or has beceom unwritable
+3. Not opened with `'w'`, or has become unwritable
 
 - `C`: Custom package-specific exception
 - `I`: PHP _InvalidArgumentException_
