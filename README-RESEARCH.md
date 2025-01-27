@@ -101,9 +101,9 @@ Seek fails                                |       |      |     | C      | R   | 
 Rewind fails                              |       |      |     | C      | R   |       | R      |
 Get contents fails                        |       |      |     | C      | R   |       | R      |
 
-1. Not opened with `'r'`, or has become unreadable
-2. Metadata `'seekable'` is `false`
-3. Not opened with `'w'`, or has become unwritable
+1. E.g., not opened with `'r'`, or has become unreadable
+2. E.g., metadata `'seekable'` is `false`
+3. E.g., not opened with `'w'`, or has become unwritable
 
 - `C`: Custom package-specific exception
 - `I`: PHP _InvalidArgumentException_
