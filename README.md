@@ -3,11 +3,11 @@
 [![PDS Skeleton](https://img.shields.io/badge/pds-skeleton-blue.svg?style=flat-square)](https://github.com/php-pds/skeleton)
 [![PDS Composer Script Names](https://img.shields.io/badge/pds-composer--script--names-blue?style=flat-square)](https://github.com/php-pds/composer-script-names)
 
-This package provides interoperable interfaces providing a more object-oriented approach to encapsulating and interacting with stream resources in PHP 8.4+. It reflects, refines, and resolves the common practices identified within several pre-existing projects.
+This package provides interoperable interfaces providing a more object-oriented approach to encapsulating and interacting with stream resources in PHP 8.4+. It reflects, refines, and reconciles the common practices identified within several pre-existing projects.
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED",  "MAY", and "OPTIONAL" in this document are to be interpreted as described in [BCP 14][] ([RFC 2119][], [RFC 8174][]).
 
-This package attempts to adhere to the [SemVer](http://semver.org/) specification.
+This package attempts to adhere to the [Package Development Standards](https://php-pds.com/) approach to [naming and versioning](https://php-pds.com/#naming-and-versioning).
 
 ## Interfaces
 
@@ -50,11 +50,11 @@ Finally, it provides this custom PHPStan type to assist static analysis:
         timed_out?:bool,
         blocked?:bool,
         eof?:bool,
-        wrapper_data?:mixed[],
-        wrapper_type?:string,
-        stream_type:string,
-        mode:string,
         unread_bytes:int,
+        stream_type:string,
+        wrapper_type?:string,
+        wrapper_data?:mixed[],
+        mode:string,
         seekable:bool,
         uri?:string,
         crypto?:mixed[]
@@ -67,22 +67,22 @@ Notes:
 
 - **There are no `isReadable()`, etc. methods.** If necessary, such functionality can be determined by typehinting against the interface, or by checking `instanceof`, etc.
 
-- **The encapsulated resource is not exposed publicly here.** Indeed, the _Stream_ might encapsulate something other than a resource of type (stream). The encapsulated resource, if there is one, MAY remain private or protected. See the _ResourceStream_ interface below for details on making the encapsulated resource publicly accessible.
+- **The encapsulated resource is not exposed publicly here.** Indeed, the _Stream_ might encapsulate something other than a `resource of type (stream)`. The encapsulated resource, if there is one, MAY remain private or protected. See the _ResourceStream_ interface below for details on making the encapsulated resource publicly accessible.
 
 ### _ResourceStream_
 
-The _ResourceStream_ interface extends _Stream_ to define this property that allows public access to the encapsulated resource:
+The _ResourceStream_ interface extends _Stream_ to define a property to allow public access to the encapsulated `resource of type (stream)`:
 
 - `public resource $resource { get; }`
     - Represents the resource as if opened by [`fopen()`][], [`fsockopen()`][], [`popen()`][], etc.
     - It MUST be a `resource of type (stream)`; for example, as determined by `get_resource_type()`.
-    - It SHOULD NOT be publicly settable.
+    - It SHOULD NOT be publicly settable, either as a property or via a method.
 
 Notes:
 
 - **Not all _Stream_ implementations need to expose the encapsulated resource.** Exposing the resource gives full control over it to consumers, who can then manipulate it however they like (e.g. close it, move the pointer, and so on). However, having access to the resource may be necessary for some consumers.
 
-- **Some _Stream_ implementations might not encapsulate any resource at all.** Although resources of type (stream) are the most common source for a stream, other sources MAY be used, in which cases _ResourceStream_ is neither appropriate nor necessary.
+- **Some _Stream_ implementations might not encapsulate any resource at all.** Although a `resource of type (stream)` is the most common source for a stream, other sources MAY be used, in which cases _ResourceStream_ is neither appropriate nor necessary.
 
 ### _ClosableStream_
 
@@ -189,6 +189,11 @@ Please see [README-RESEARCH.md][] for more information.
 [Stream filters](https://www.php.net/manual/en/function.stream-filter-register.php) are a powerful aspect of stream resources. However, as they operate on resources directly, creating interfaces for them is out-of-scope for StreamInterop. Further, none of the projects included in the StreamInterop research implemented filters, making it difficult to rationalize adding filter interfaces.
 
 Even so, consumers are free to register filters on the resources they injection into a _Stream_. In addition, implementors are free to create filter mechanisms that intercept the input going into a _WritableStream_ (e.g. via its `write()` method) or the output coming from a _ReadableStream_ (e.g. via its `read()` method).
+
+### Why is there no _Factory_ interface?
+
+The sheer volume of possible combinations of the various interfaces makes it difficult to provide a factory with proper return typehints. Implementors are encouraged to develop their own factories with proper typehinting.
+
 
 * * *
 
