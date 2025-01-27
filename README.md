@@ -29,9 +29,9 @@ Implementations MAY read from a resource internally without affording _ReadableS
 The _Stream_ interface defines these properties common to all streams:
 
 - `public MetadataArray $metadata { get; }`
-    - Represents the metadata for the resource as by `stream_get_meta_data()`.
+    - Represents the metadata for the encapsulated resource as if by [`stream_get_meta_data()`][].
     - It MUST provide the most-recent metadata for the encapsulated resource at the moment of property access.
-    - It MUST NOT be publicly settable.
+    - It MUST NOT be publicly settable, either as a property or via property hook or method.
 
 It also defines these methods common to all streams:
 
@@ -47,17 +47,18 @@ Finally, it provides this custom PHPStan type to assist static analysis:
 
     ```
     array{
-        timed_out?:bool,
-        blocked?:bool,
-        eof?:bool,
-        unread_bytes:int,
-        stream_type:string,
-        wrapper_type?:string,
-        wrapper_data?:mixed[],
-        mode:string,
-        seekable:bool,
-        uri?:string,
-        crypto?:mixed[]
+        timed_out: bool,
+        blocked: bool,
+        eof: bool,
+        unread_bytes: int,
+        stream_type: string,
+        wrapper_type: string,
+        wrapper_data: mixed,
+        mode: string,
+        seekable: bool,
+        uri?: string,
+        mediatype?: string,
+        base64?: bool
     }
     ```
 
@@ -76,7 +77,7 @@ The _ResourceStream_ interface extends _Stream_ to define a property to allow pu
 - `public resource $resource { get; }`
     - Represents the resource as if opened by [`fopen()`][], [`fsockopen()`][], [`popen()`][], etc.
     - It MUST be a `resource of type (stream)`; for example, as determined by `get_resource_type()`.
-    - It SHOULD NOT be publicly settable, either via property hook or method.
+    - It SHOULD NOT be publicly settable, either as a property or via property hook or method.
 
 Notes:
 
@@ -87,7 +88,7 @@ Notes:
 ### _ClosableStream_
 
 The _ClosableStream_ interface extends _Stream_ to define this method:
-s
+
 - `public function close() : void`
     - Closes the encapsulated resource as if by [`fclose()`][], [`pclose()`][], etc.
     - Implementations MUST throw [_RuntimeException_][] on failure.
@@ -151,14 +152,14 @@ If the encapsulated resource is not seekable at the time it becomes available to
 The _StringableStream_ interface extends _Stream_ to define a single method for returning the entire resource as a string:
 
 - `public function __toString() : string`
-    - Returns the entire contents of the resource as if by [`rewind()`][]ing before it returns [`stream_get_contents()`][].
+    - Returns the entire contents of the encapsulated resource as if by [`rewind()`][]ing before it returns [`stream_get_contents()`][].
 
 ### _WritableStream_
 
 The _WritableStream_ interface extends _Stream_ to define a single method for writing to a resource:
 
 - `public function write(string|Stringable $data) : int`
-    - Writes `$data` starting at the current stream pointer position, returning the number of bytes written, as if by `fwrite()`.
+    - Writes `$data` starting at the current stream pointer position, returning the number of bytes written, as if by [`fwrite()`][].
     - Implementations MUST throw [_RuntimeException_][] on failure.
 
 If the encapsulated resource is not writable at the time it becomes available to the _WritableStream_, implementations MUST throw [_InvalidArgumentException_][].

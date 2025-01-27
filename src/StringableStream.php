@@ -7,5 +7,9 @@ use Stringable;
 
 interface StringableStream extends Stream, Stringable
 {
+    /**
+     * Returns the entire contents of the encapsulated resource as if by
+     * rewind()ing before it returns stream_get_contents().
+     */
     public function __toString() : string;
 }

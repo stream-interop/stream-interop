@@ -6,28 +6,31 @@ namespace StreamInterop\Interface;
 use RuntimeException;
 
 /**
- * Contract for a seekable stream.
+ * If the encapsulated resource is not seekable at the time it becomes
+ * available to the SeekableStream, implementations MUST throw
+ * InvalidArgumentException.
  */
 interface SeekableStream extends Stream
 {
     /**
-     * Seek to a position within the stream.
+     * Moves the stream pointer position to the beginning of the stream as if
+     * by rewind().
+     *
+     * @throws RuntimeException on failure.
+     */
+    public function rewind() : void;
+
+    /**
+     * Moves the stream pointer position to the $offset as if by fseek().
      *
      * @throws RuntimeException on failure.
      */
     public function seek(int $offset, int $whence = SEEK_SET) : void;
 
     /**
-     * Retrieve the current position of the buffer's internal pointer.
+     * Returns the current stream pointer position as if by ftell().
      *
      * @throws RuntimeException on failure.
      */
     public function tell() : int;
-
-    /**
-     * Rewind the stream back to the beginning.
-     *
-     * @throws RuntimeException on failure.
-     */
-    public function rewind() : void;
 }

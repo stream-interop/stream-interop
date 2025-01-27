@@ -4,23 +4,19 @@ declare(strict_types=1);
 namespace StreamInterop\Interface;
 
 use RuntimeException;
-use Stringable;
 
 /**
- * Contract for a writable stream.
- *
- * A writeable stream is used when writing data to a "destination". For
- * example, writing to a console's ("stdout") or ("stderr") stream or when 
- * creating HTTP requests, on the client.
+ * If the encapsulated resource is not writable at the time it becomes
+ * available to the WritableStream, implementations MUST throw
+ * InvalidArgumentException.
  */
 interface WritableStream extends Stream
 {
     /**
-     * Write data to the stream.
+     * Writes $data starting at the current stream pointer position, returning
+     * the number of bytes written, as if by fwrite().
      *
-     * @param string|Stringable $data The content to be written to the stream.
-     * @throws RuntimeException If the stream could not be written to. (E.g. stream was closed.)
-     * @return integer The number of bytes written to the stream.
+     * @throws RuntimeException on failure.
      */
     public function write(string|Stringable $data) : int;
 }

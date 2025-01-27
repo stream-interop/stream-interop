@@ -6,30 +6,29 @@ namespace StreamInterop\Interface;
 use RuntimeException;
 
 /**
- * Contract for readable streams.
- *
- * A readable stream is used when reading data from a "source". For example, reading
- * input from the console ("stdin").
+ * If the encapsulated resource is not readable at the time it becomes
+ * available to the ReadableStream, implementations MUST throw
+ * InvalidArgumentException.
  */
 interface ReadableStream extends Stream
 {
     /**
-     * Retrieve content (in bytes) from the source.
+     * Tests for end-of-file on the encapsulated resource as if by feof().
+     */
+    public function eof() : bool;
+
+    /**
+     * Returns up to $length bytes from the encapsulated resource as if by
+     * fread().
      *
-     * @param int<1,max> $length The number of bytes to retrieve.
+     * @param int<1,max> $length
      * @throws RuntimeException on failure.
      */
     public function read(int $length) : string;
 
     /**
-     * Determines if the stream has read to end-of-file.
-     *
-     * @return boolean
-     */
-    public function eof() : bool;
-
-    /**
-     * Retrieve the remaining contents in the buffer.
+     * Returns the remaining contents of the resource from the current pointer
+     * position as if by stream_get_contents().
      *
      * @throws RuntimeException on failure.
      */
