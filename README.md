@@ -30,16 +30,16 @@ The _Stream_ interface defines these properties common to all streams:
 
 - `public MetadataArray $metadata { get; }`
     - Represents the metadata for the resource as by `stream_get_meta_data()`.
-    - It MUST provide the most-recent metadata for the `$resource` at the moment of property access.
+    - It MUST provide the most-recent metadata for the encapsulated resource at the moment of property access.
     - It MUST NOT be publicly settable.
 
 It also defines these methods common to all streams:
 
 - `public function isClosed() : bool`
-    - Returns true if the stream has been closed, or false if not.
+    - Returns true if the encapsulated resource has been closed, or false if not.
 
 - `public function isOpen() : bool`
-    - Returns true if the stream is still open, or false if not.
+    - Returns true if the encapsulated resource is still open, or false if not.
 
 Finally, it provides this custom PHPStan type to assist static analysis:
 
@@ -67,29 +67,29 @@ Notes:
 
 - **There are no `isReadable()`, etc. methods.** If necessary, such functionality can be determined by typehinting against the interface, or by checking `instanceof`, etc.
 
-- **The encapsulated resource is not exposed publicly here.** Indeed, the _Stream_ might encapsulate something other than a `resource of type (stream)`. The encapsulated resource, if there is one, MAY remain private or protected. See the _ResourceStream_ interface below for details on making the encapsulated resource publicly accessible.
+- **The encapsulated resource is not exposed publicly here.** The encapsulated resource MAY remain private or protected. See the _ResourceStream_ interface below for details on making the encapsulated resource publicly accessible.
 
 ### _ResourceStream_
 
-The _ResourceStream_ interface extends _Stream_ to define a property to allow public access to the encapsulated `resource of type (stream)`:
+The _ResourceStream_ interface extends _Stream_ to define a property to allow public access to the encapsulated resource:
 
 - `public resource $resource { get; }`
     - Represents the resource as if opened by [`fopen()`][], [`fsockopen()`][], [`popen()`][], etc.
     - It MUST be a `resource of type (stream)`; for example, as determined by `get_resource_type()`.
-    - It SHOULD NOT be publicly settable, either as a property or via a method.
+    - It SHOULD NOT be publicly settable, either via property hook or method.
 
 Notes:
 
 - **Not all _Stream_ implementations need to expose the encapsulated resource.** Exposing the resource gives full control over it to consumers, who can then manipulate it however they like (e.g. close it, move the pointer, and so on). However, having access to the resource may be necessary for some consumers.
 
-- **Some _Stream_ implementations might not encapsulate any resource at all.** Although a `resource of type (stream)` is the most common source for a stream, other sources MAY be used, in which cases _ResourceStream_ is neither appropriate nor necessary.
+- **Some _Stream_ implementations might not encapsulate a resource.** Although a resource is the most common data source for a stream, other data sources MAY be used, in which cases _ResourceStream_ is neither appropriate nor necessary.
 
 ### _ClosableStream_
 
 The _ClosableStream_ interface extends _Stream_ to define this method:
-
+s
 - `public function close() : void`
-    - Closes the stream as if by [`fclose()`][], [`pclose()`][], etc.
+    - Closes the encapsulated resource as if by [`fclose()`][], [`pclose()`][], etc.
     - Implementations MUST throw [_RuntimeException_][] on failure.
 
 Notes:
@@ -101,25 +101,25 @@ Notes:
 The _SizableStream_ interface extends _Stream_ to define this method:
 
 - `public function getSize() : ?int<0,max>`
-    - Returns the length of the stream in bytes as if by the [`fstat()`][] value for `size`, or null if indeterminate or on error.
+    - Returns the length of the encapsulated resource in bytes as if by the [`fstat()`][] value for `size`, or null if indeterminate or on error.
 
 Notes:
 
-- **Not all _Stream_ implementations need to be sizable.** Some encapsulated resources may be unable to report a size; for example, remote or write-only streams.
+- **Not all _Stream_ implementations need to be sizable.** Some encapsulated resources may be unable to report a size; for example, remote or write-only resources.
 
 ### _ReadableStream_
 
 The _ReadableStream_ interface extends _Stream_ to define these methods for reading from a resource:
 
 - `public function eof() : bool`
-    - Tests for end-of-file on the stream as if by [`feof()`][].
+    - Tests for end-of-file on the encapsulated resource as if by [`feof()`][].
 
 - `public function getContents() : string`
     - Returns the remaining contents of the resource from the current pointer position as if by [`stream_get_contents()`][].
     - Implementations MUST throw [_RuntimeException_][] on failure.
 
 - `public function read(int<1,max> $length) : string`
-    - Returns up to `$length` bytes from the stream as if by [`fread()`][].
+    - Returns up to `$length` bytes from the encapsulated resource as if by [`fread()`][].
     - Implementations MUST throw [_RuntimeException_][] on failure.
 
 If the encapsulated resource is not readable at the time it becomes available to the _ReadableStream_, implementations MUST throw [_InvalidArgumentException_][].
@@ -168,6 +168,11 @@ If the encapsulated resource is not writable at the time it becomes available to
 
 Reference implementations are available at <https://github.com/stream-interop/impl>.
 
+Notes:
+
+- **A _Stream_ implementation MAY encapsulate a string or some other kind of data source, instead of a `resource`.** In these cases, it will make no sense to implement _ResourceStream_. Implementations that encapsulate something besides a `resource` MUST behave *as if* they encapsulate a resource.
+
+
 ## Q & A
 
 ### What projects were used as reference points for StreamInterop?
@@ -193,7 +198,6 @@ Even so, consumers are free to register filters on the resources they injection 
 ### Why is there no _Factory_ interface?
 
 The sheer volume of possible combinations of the various interfaces makes it difficult to provide a factory with proper return typehints. Implementors are encouraged to develop their own factories with proper typehinting.
-
 
 * * *
 
