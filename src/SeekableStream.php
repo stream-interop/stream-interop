@@ -5,6 +5,10 @@ namespace StreamInterop\Interface;
 
 use RuntimeException;
 
+use const SEEK_CUR;
+use const SEEK_END;
+use const SEEK_SET;
+
 /**
  * If the encapsulated resource is not seekable at the time it becomes
  * available to the SeekableStream, implementations MUST throw LogicException
@@ -23,6 +27,7 @@ interface SeekableStream extends Stream
     /**
      * Moves the stream pointer position to the $offset as if by fseek().
      *
+     * @param SEEK_CUR|SEEK_SET|SEEK_END $whence
      * @throws RuntimeException on failure.
      */
     public function seek(int $offset, int $whence = SEEK_SET) : void;
