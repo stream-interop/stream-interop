@@ -22,8 +22,6 @@ StreamInterop defines separate interfaces for various affordances around stream 
 - [_StringableStream_](#user-content-stringablestream) affords casting the stream to a string.
 - [_WritableStream_](#user-content-writablestream) affords writing to the stream.
 
-Implementations MAY read from a resource internally without affording _ReadableStream_. Likewise, implementations MAY write to a resource internally without affording _WritableStream_, seek on a resource internally without affording _SeekableStream_, and so on.
-
 ### _Stream_
 
 The _Stream_ interface defines these properties common to all streams:
@@ -93,9 +91,12 @@ The _ClosableStream_ interface extends _Stream_ to define this method:
     - Closes the encapsulated resource as if by [`fclose()`][], [`pclose()`][], etc.
     - Implementations MUST throw [_RuntimeException_][] (or an extension thereof) on failure.
 
+Implementations MAY close the encapsulated resource internally without affording _ClosableStream_.
+
 Notes:
 
 - **Not all _Stream_ implementations need to be closable.** It may be important for resource closing to be handled by a separate service or authority, and not be closable by _Stream_ consumers.
+
 
 ### _SizableStream_
 
@@ -103,6 +104,8 @@ The _SizableStream_ interface extends _Stream_ to define this method:
 
 - `public function getSize() : ?int<0,max>`
     - Returns the length of the encapsulated resource in bytes as if by the [`fstat()`][] value for `size`, or null if indeterminate or on error.
+
+Implementations MAY get the size of the encapsulated resource internally without affording _SizableStream_.
 
 Notes:
 
@@ -124,6 +127,8 @@ The _ReadableStream_ interface extends _Stream_ to define these methods for read
     - Implementations MUST throw [_RuntimeException_][] (or an extension thereof) on failure.
 
 If the encapsulated resource is not readable at the time it becomes available to the _ReadableStream_, implementations MUST throw [_LogicException_][] (or an extension thereof).
+
+Implementations MAY read from the encapsulated resource internally without affording _ReadableStream_.
 
 Notes:
 
@@ -154,6 +159,8 @@ The _StringableStream_ interface extends _Stream_ to define a single method for 
 - `public function __toString() : string`
     - Returns the entire contents of the encapsulated resource as if by [`rewind()`][]ing before returning [`stream_get_contents()`][].
 
+Implementations MAY convert the encapsulated resource to a string internally without affording _StringableStream_.
+
 ### _WritableStream_
 
 The _WritableStream_ interface extends _Stream_ to define a single method for writing to a resource:
@@ -164,6 +171,7 @@ The _WritableStream_ interface extends _Stream_ to define a single method for wr
 
 If the encapsulated resource is not writable at the time it becomes available to the _WritableStream_, implementations MUST throw [_LogicException_][] (or an extension thereof).
 
+Implementations MAY write to the encapsulated resource internally without affording _WritableStream_.
 
 ## Implementations
 
