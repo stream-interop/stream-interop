@@ -7,8 +7,8 @@ use RuntimeException;
 
 /**
  * If the encapsulated resource is not seekable at the time it becomes
- * available to the SeekableStream, implementations MUST throw
- * InvalidArgumentException.
+ * available to the SeekableStream, implementations MUST throw LogicException
+ * (or an extension thereof).
  */
 interface SeekableStream extends Stream
 {

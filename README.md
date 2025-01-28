@@ -91,7 +91,7 @@ The _ClosableStream_ interface extends _Stream_ to define this method:
 
 - `public function close() : void`
     - Closes the encapsulated resource as if by [`fclose()`][], [`pclose()`][], etc.
-    - Implementations MUST throw [_RuntimeException_][] on failure.
+    - Implementations MUST throw [_RuntimeException_][] (or an extension thereof) on failure.
 
 Notes:
 
@@ -117,13 +117,13 @@ The _ReadableStream_ interface extends _Stream_ to define these methods for read
 
 - `public function getContents() : string`
     - Returns the remaining contents of the resource from the current pointer position as if by [`stream_get_contents()`][].
-    - Implementations MUST throw [_RuntimeException_][] on failure.
+    - Implementations MUST throw [_RuntimeException_][] (or an extension thereof) on failure.
 
 - `public function read(int<1,max> $length) : string`
     - Returns up to `$length` bytes from the encapsulated resource as if by [`fread()`][].
-    - Implementations MUST throw [_RuntimeException_][] on failure.
+    - Implementations MUST throw [_RuntimeException_][] (or an extension thereof) on failure.
 
-If the encapsulated resource is not readable at the time it becomes available to the _ReadableStream_, implementations MUST throw [_InvalidArgumentException_][].
+If the encapsulated resource is not readable at the time it becomes available to the _ReadableStream_, implementations MUST throw [_LogicException_][] (or an extension thereof).
 
 Notes:
 
@@ -135,17 +135,17 @@ The _SeekableStream_ interface extends _Stream_ to define methods for moving the
 
 - `public function rewind() : void`
     - Moves the stream pointer position to the beginning of the stream as if by [`rewind()`][].
-    - Implementations MUST throw [_RuntimeException_][] on failure.
+    - Implementations MUST throw [_RuntimeException_][] (or an extension thereof) on failure.
 
 - `public function seek(int $offset, int $whence = SEEK_SET) : void`
     - Moves the stream pointer position to the `$offset` as if by [`fseek()`][].
-    - Implementations MUST throw [_RuntimeException_][] on failure.
+    - Implementations MUST throw [_RuntimeException_][] (or an extension thereof) on failure.
 
 - `public function tell() : int`
     - Returns the current stream pointer position as if by [`ftell()`][].
-    - Implementations MUST throw [_RuntimeException_][] on failure.
+    - Implementations MUST throw [_RuntimeException_][] (or an extension thereof) on failure.
 
-If the encapsulated resource is not seekable at the time it becomes available to the _SeekableStream_, implementations MUST throw [_InvalidArgumentException_][].
+If the encapsulated resource is not seekable at the time it becomes available to the _SeekableStream_, implementations MUST throw [_LogicException_][] (or an extension thereof) .
 
 ### _StringableStream_
 
@@ -162,7 +162,7 @@ The _WritableStream_ interface extends _Stream_ to define a single method for wr
     - Writes `$data` starting at the current stream pointer position, returning the number of bytes written, as if by [`fwrite()`][].
     - Implementations MUST throw [_RuntimeException_][] on failure.
 
-If the encapsulated resource is not writable at the time it becomes available to the _WritableStream_, implementations MUST throw [_InvalidArgumentException_][].
+If the encapsulated resource is not writable at the time it becomes available to the _WritableStream_, implementations MUST throw [_LogicException_][] (or an extension thereof).
 
 
 ## Implementations
@@ -202,7 +202,7 @@ The sheer volume of possible combinations of the various interfaces makes it dif
 
 * * *
 
-[_InvalidArgumentException_]: https://php.net/InvalidArgumentException
+[_LogicException_]: https://php.net/LogicException
 [_RuntimeException_]: https://php.net/RuntimeException
 [`fclose()`]: https://php.net/fclose
 [`feof()`]: https://php.net/feof

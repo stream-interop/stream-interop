@@ -7,8 +7,8 @@ use RuntimeException;
 
 /**
  * If the encapsulated resource is not readable at the time it becomes
- * available to the ReadableStream, implementations MUST throw
- * InvalidArgumentException.
+ * available to the ReadableStream, implementations MUST throw LogicException
+ * (or an extension thereof).
  */
 interface ReadableStream extends Stream
 {

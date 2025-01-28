@@ -4,11 +4,12 @@ declare(strict_types=1);
 namespace StreamInterop\Interface;
 
 use RuntimeException;
+use Stringable;
 
 /**
  * If the encapsulated resource is not writable at the time it becomes
- * available to the WritableStream, implementations MUST throw
- * InvalidArgumentException.
+ * available to the WritableStream, implementations MUST throw LogicException
+ * (or an extension thereof).
  */
 interface WritableStream extends Stream
 {
