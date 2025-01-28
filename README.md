@@ -13,14 +13,14 @@ This package attempts to adhere to the [Package Development Standards](https://p
 
 StreamInterop defines separate interfaces for various affordances around stream resources so that (1) implementations can advertise well-tailored affordances, and (2) consumers can typehint to the specific affordances they require for specific situations.
 
-- _Stream_ is a common baseline for streams.
-- _ResourceStream_ affords direct access to the encapsulated resource.
-- _ClosableStream_ affords closing the stream.
-- _SizableStream_ affords getting the full length of the stream in bytes.
-- _ReadableStream_ affords reading from the stream.
-- _SeekableStream_ affords moving the stream pointer.
-- _StringableStream_ affords casting the stream to a string.
-- _WritableStream_ affords writing to the stream.
+- [_Stream_](#user-content-stream) is a common baseline for streams.
+- [_ResourceStream_](#ruser-content-esourcestream) affords direct access to the encapsulated resource.
+- [_ClosableStream_](#user-content-closablestream) affords closing the stream.
+- [_SizableStream_](#user-content-sizablestream) affords getting the full length of the stream in bytes.
+- [_ReadableStream_](#user-content-readablestream) affords reading from the stream.
+- [_SeekableStream_](#user-content-seekablestream) affords moving the stream pointer.
+- [_StringableStream_](#user-content-stringablestream) affords casting the stream to a string.
+- [_WritableStream_](#user-content-writablestream) affords writing to the stream.
 
 Implementations MAY read from a resource internally without affording _ReadableStream_. Likewise, implementations MAY write to a resource internally without affording _WritableStream_, seek on a resource internally without affording _SeekableStream_, and so on.
 
@@ -145,14 +145,14 @@ The _SeekableStream_ interface extends _Stream_ to define methods for moving the
     - Returns the current stream pointer position as if by [`ftell()`][].
     - Implementations MUST throw [_RuntimeException_][] (or an extension thereof) on failure.
 
-If the encapsulated resource is not seekable at the time it becomes available to the _SeekableStream_, implementations MUST throw [_LogicException_][] (or an extension thereof) .
+If the encapsulated resource is not seekable at the time it becomes available to the _SeekableStream_, implementations MUST throw [_LogicException_][] (or an extension thereof).
 
 ### _StringableStream_
 
 The _StringableStream_ interface extends _Stream_ to define a single method for returning the entire resource as a string:
 
 - `public function __toString() : string`
-    - Returns the entire contents of the encapsulated resource as if by [`rewind()`][]ing before it returns [`stream_get_contents()`][].
+    - Returns the entire contents of the encapsulated resource as if by [`rewind()`][]ing before returning [`stream_get_contents()`][].
 
 ### _WritableStream_
 
@@ -171,7 +171,7 @@ Reference implementations are available at <https://github.com/stream-interop/im
 
 Notes:
 
-- **A _Stream_ implementation MAY encapsulate a string or some other kind of data source, instead of a `resource`.** In these cases, it will make no sense to implement _ResourceStream_. Implementations that encapsulate something besides a `resource` MUST behave *as if* they encapsulate a resource.
+- **A _Stream_ implementation MAY encapsulate a string or some other kind of data source, instead of a `resource`.** In these cases, it will make no sense to implement _ResourceStream_. Implementations encapsulating something besides a `resource` MUST behave *as if* they encapsulate a resource.
 
 
 ## Q & A
