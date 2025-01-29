@@ -2,8 +2,9 @@
     "name": "stream-interop/interface",
     "type": "library",
     "description": "Interoperable interfaces for streams in PHP 8.4 and later.",
-    "homepage": "https://github.com/stream-interop/interface",
+    "keywords": ["stream", "interop", "resource"],
     "license": "MIT",
+    "homepage": "https://github.com/stream-interop/interface",
     "authors": [
         {
             "name": "Nathan Bishop",
@@ -18,13 +19,13 @@
             "role": "Lead"
         }
     ],
+    "require": {
+        "php": ">=8.4"
+    },
     "autoload": {
         "psr-4" : {
             "StreamInterop\\Interface\\": "src/"
         }
-    },
-    "require": {
-        "php": ">=8.4"
     },
     "require-dev": {
         "pds/skeleton": "^1.0",
