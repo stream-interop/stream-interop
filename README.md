@@ -3,7 +3,7 @@
 [![PDS Skeleton](https://img.shields.io/badge/pds-skeleton-blue.svg?style=flat-square)](https://github.com/php-pds/skeleton)
 [![PDS Composer Script Names](https://img.shields.io/badge/pds-composer--script--names-blue?style=flat-square)](https://github.com/php-pds/composer-script-names)
 
-This package provides interoperable interfaces providing a more object-oriented approach to encapsulating and interacting with stream resources in PHP 8.4+. It reflects, refines, and reconciles the common practices identified within several pre-existing projects.
+This package publishes interoperable interfaces providing a more object-oriented approach to encapsulating and interacting with stream resources in PHP 8.4+. It reflects, refines, and reconciles the common practices identified within [several pre-existing projects][README-RESEARCH.md].
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED",  "MAY", and "OPTIONAL" in this document are to be interpreted as described in [BCP 14][] ([RFC 2119][], [RFC 8174][]).
 
@@ -11,7 +11,7 @@ This package attempts to adhere to the [Package Development Standards](https://p
 
 ## Interfaces
 
-Stream-Interop defines separate interfaces for various affordances around stream resources so that (1) implementations can advertise well-tailored affordances, and (2) consumers can typehint to the specific affordances they require for specific situations.
+Stream-Interop defines separate interfaces for various affordances around stream resources so that (1) implementations can advertise well-tailored affordances, and (2) consumers can typehint to the specific affordances they require for specific situations:
 
 - [_Stream_](#user-content-stream) is a common baseline for streams.
 - [_ResourceStream_](#ruser-content-esourcestream) affords direct access to the encapsulated resource.
