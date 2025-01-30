@@ -1,4 +1,4 @@
-# Stream Interop Interface Package
+# Stream-Interop Interface Package
 
 [![PDS Skeleton](https://img.shields.io/badge/pds-skeleton-blue.svg?style=flat-square)](https://github.com/php-pds/skeleton)
 [![PDS Composer Script Names](https://img.shields.io/badge/pds-composer--script--names-blue?style=flat-square)](https://github.com/php-pds/composer-script-names)
@@ -11,7 +11,7 @@ This package attempts to adhere to the [Package Development Standards](https://p
 
 ## Interfaces
 
-StreamInterop defines separate interfaces for various affordances around stream resources so that (1) implementations can advertise well-tailored affordances, and (2) consumers can typehint to the specific affordances they require for specific situations.
+Stream-Interop defines separate interfaces for various affordances around stream resources so that (1) implementations can advertise well-tailored affordances, and (2) consumers can typehint to the specific affordances they require for specific situations.
 
 - [_Stream_](#user-content-stream) is a common baseline for streams.
 - [_ResourceStream_](#ruser-content-esourcestream) affords direct access to the encapsulated resource.
@@ -184,7 +184,7 @@ Notes:
 
 ## Q & A
 
-### What projects were used as reference points for StreamInterop?
+### What projects were used as reference points for Stream-Interop?
 
 These are the reference projects for developing the above interfaces.
 
@@ -200,7 +200,7 @@ Please see [README-RESEARCH.md][] for more information.
 
 ### What about filters?
 
-[Stream filters](https://www.php.net/manual/en/function.stream-filter-register.php) are a powerful aspect of stream resources. However, as they operate on resources directly, creating interfaces for them is out-of-scope for StreamInterop. Further, none of the projects included in the StreamInterop research implemented filters, making it difficult to rationalize adding filter interfaces.
+[Stream filters](https://www.php.net/manual/en/function.stream-filter-register.php) are a powerful aspect of stream resources. However, as they operate on resources directly, creating interfaces for them is out-of-scope for Stream-Interop. Further, none of the projects included in the Stream-Interop research implemented filters, making it difficult to rationalize adding filter interfaces.
 
 Even so, consumers are free to register filters on the resources they injection into a _Stream_. In addition, implementors are free to create filter mechanisms that intercept the input going into a _WritableStream_ (e.g. via its `write()` method) or the output coming from a _ReadableStream_ (e.g. via its `read()` method).
 
